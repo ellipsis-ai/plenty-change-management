@@ -1,0 +1,12 @@
+{
+  "exportId" : "6MDQ-AtORsC_xRLnCZDlDw",
+  "name" : "RiskLevel",
+  "responseTypeId" : "Normal",
+  "canBeMemoized" : false,
+  "isDataType" : true,
+  "isTest" : false,
+  "dataTypeConfig" : {
+    "fields" : [ ],
+    "usesCode" : true
+  }
+}

@@ -1,0 +1,6 @@
+[ {
+  "text" : "change request report",
+  "requiresMention" : true,
+  "isRegex" : false,
+  "caseSensitive" : false
+} ]

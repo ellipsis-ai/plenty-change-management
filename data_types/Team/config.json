@@ -1,0 +1,12 @@
+{
+  "exportId" : "HK4j-pdYQG6_Z3rvS9Vsmg",
+  "name" : "Team",
+  "responseTypeId" : "Normal",
+  "canBeMemoized" : false,
+  "isDataType" : true,
+  "isTest" : false,
+  "dataTypeConfig" : {
+    "fields" : [ ],
+    "usesCode" : true
+  }
+}
