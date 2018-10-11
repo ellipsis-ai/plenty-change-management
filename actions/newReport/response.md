@@ -6,4 +6,4 @@ _Here is a draft of your report:_
 
 ---
 
-_Look good? Click **Save report** to continue._
+_Look good? Click **Submit for approval** to continue._

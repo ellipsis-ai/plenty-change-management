@@ -14,6 +14,10 @@ client.authorize().then(() => {
     range: ellipsis.env.CHANGE_REQUEST_SHEET_NAME,
     auth: client,
   });
+}).catch((err) => {
+  throw new ellipsis.Error(err, {
+    userMessage: "An error occurred while trying to read the change request spreadsheet."
+  });
 }).then((result) => {
   const rows = result.data.values;
   if (!rows || !rows.length) {
@@ -31,7 +35,7 @@ client.authorize().then(() => {
   } else {
     const row = rows[matchingRowIndex];
     if (/^(y|yes)$/i.test(row[0])) {
-      return `:warning: This report has already been approved! Forwarding to ${report.evaluatorGroup} for review again…`;
+      return `:warning: This report has already been approved!`;
     } else {
       const cellId = `${report.columnOfApproved()}${matchingRowIndex + 1}`;
       return sheets.spreadsheets.values.update({
@@ -44,15 +48,15 @@ client.authorize().then(() => {
         auth: client
       }).then(() => {
         report.approved = "Yes";
-        return `:sparkles: The report has been initially approved. Forwarding to ${report.evaluatorGroup} for review…`;
+        return `:sparkles: The report has been initially approved.`;
+      }).catch((err) => {
+        throw new ellipsis.Error(err, {
+          userMessage: "An error occurred while trying to update the spreadsheet to grant initial approval."
+        });
       });
     }
   }
 }).then((resultText) => {
-  return actionsApi.say({
-    message: resultText
-  });
-}).then(() => {
   const category = categories.find((ea) => ea.name === report.evaluatorGroup);
   if (category) {
     return actionsApi.run({
@@ -62,11 +66,19 @@ client.authorize().then(() => {
         name: "status",
         value: "awaiting final approval"
       }]
+    }).then(() => {
+      return `${resultText} The report has been forwarded to ${report.evaluatorGroup} in #${category.channel} for review.`;
+    }).catch((err) => {
+      throw new ellipsis.Error(err, {
+        userMessage: "An error occured while trying to publish the report to the appropriate evaluator group channel."
+      });
     });
   } else {
-    throw new ellipsis.Error(`No channel found for category ${report.evaluatorGroup}`);
+    throw new ellipsis.Error(`No channel found for category ${report.evaluatorGroup}`, {
+      userMessage: "An error occured while trying to publish the report to the appropriate evaluator group channel."
+    });
   }
-}).then(() => {
-  ellipsis.success("Report sent!")
+}).then((resultText) => {
+  ellipsis.success(resultText);
 });
 }

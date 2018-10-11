@@ -7,11 +7,9 @@ const sheets = google.sheets('v4');
 const moment = require('moment-timezone');
 const Report = require('Report');
 
-const timestamp = moment.tz(ellipsis.teamInfo.timeZone).format("MMMM D YYYY, h:mm:ss a");
 const report = Report.fromString(reportData);
 report.approved = "No";
-report.timestamp = timestamp;
-const values = [report.toRow()];
+report.timestamp = moment.tz(ellipsis.teamInfo.timeZone).format("MMMM D YYYY, h:mm:ss a");
 
 client.authorize().then(() => {
   return sheets.spreadsheets.values.append({
@@ -19,14 +17,16 @@ client.authorize().then(() => {
     range: ellipsis.env.CHANGE_REQUEST_SHEET_NAME,
     valueInputOption: 'USER_ENTERED',
     requestBody: {
-      values: values
+      values: [report.toRow()]
     },
     auth: client
   });
 }).then((res) => {
   const updated = res.data.updates.updatedRows;
-  if (updated == 0) {
-    ellipsis.error(`The report was not saved. No rows were updated.`);
+  if (updated === 0) {
+    throw new ellipsis.Error("Report was not saved. No rows were updated.", {
+      userMessage: `An error occurred while trying to save your report. Please notify <@${ellipsis.env.CHANGE_CONTROL_MANAGER_USER_ID}>.`
+    });
   } else {
     actionsApi.run({
       actionName: "submitForApproval",

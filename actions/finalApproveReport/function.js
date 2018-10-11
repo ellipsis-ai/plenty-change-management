@@ -1,6 +1,5 @@
 function(reportData, ellipsis) {
-  const moment = require('moment-timezone');
-const EllipsisApi = require('ellipsis-api');
+  const EllipsisApi = require('ellipsis-api');
 const actionsApi = new EllipsisApi(ellipsis).actions;
 const client = require('google-client')(ellipsis);
 const {google} = require('googleapis');
@@ -8,6 +7,7 @@ const sheets = google.sheets('v4');
 const Report = require('Report');
 const report = Report.fromString(reportData);
 const categories = require("change-categories");
+
 
 client.authorize().then(() => {
   return sheets.spreadsheets.values.get({
@@ -40,6 +40,10 @@ client.authorize().then(() => {
         values: [row]
       },
       auth: client
+    }).catch((err) => {
+      throw new ellipsis.Error(err, {
+        userMessage: "An error occurred while trying to save the report to the Approved spreadsheet."
+      });
     });
   }
 }).then(() => {
@@ -50,8 +54,12 @@ client.authorize().then(() => {
       name: "status",
       value: "with final approval"
     }]
+  }).catch((err) => {
+    throw new ellipsis.Error(err, {
+      userMessage: `An error occurred while trying to publish the report to the change control channel <#${ellipsis.env.CHANGE_CONTROL_CHANNEL_ID}>.`
+    });
   });
 }).then(() => {
-  ellipsis.success("The request has been granted final approval, and it has been published to the change control channel.")
+  ellipsis.success(`The request has been granted final approval, and it has been published to the change control channel <#${ellipsis.env.CHANGE_CONTROL_CHANNEL_ID}>.`);
 });
 }
