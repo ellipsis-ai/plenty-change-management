@@ -14,6 +14,10 @@ client.authorize().then(() => {
     spreadsheetId: ellipsis.env.CHANGE_REQUEST_SHEET_ID,
     range: ellipsis.env.CHANGE_REQUEST_SHEET_NAME,
     auth: client,
+  }).catch((err) => {
+    throw new ellipsis.Error(err, {
+      userMessage: "An error occurred while trying to read the change request spreadsheet."
+    });
   });
 }).then((result) => {
   const rows = result.data.values;

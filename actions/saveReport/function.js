@@ -7,6 +7,7 @@ const sheets = google.sheets('v4');
 const moment = require('moment-timezone');
 const Report = require('Report');
 
+const SAVE_ERROR_MESSAGE = `An error occurred while trying to save your report. Please notify <@${ellipsis.env.CHANGE_CONTROL_MANAGER_USER_ID}>.`;
 const report = Report.fromString(reportData);
 report.approved = "No";
 report.timestamp = moment.tz(ellipsis.teamInfo.timeZone).format("MMMM D YYYY, h:mm:ss a");
@@ -21,11 +22,15 @@ client.authorize().then(() => {
     },
     auth: client
   });
+}).catch((err) => {
+  throw new ellipsis.Error(err, {
+    userMessage: SAVE_ERROR_MESSAGE
+  });
 }).then((res) => {
   const updated = res.data.updates.updatedRows;
   if (updated === 0) {
     throw new ellipsis.Error("Report was not saved. No rows were updated.", {
-      userMessage: `An error occurred while trying to save your report. Please notify <@${ellipsis.env.CHANGE_CONTROL_MANAGER_USER_ID}>.`
+      userMessage: SAVE_ERROR_MESSAGE
     });
   } else {
     actionsApi.run({
