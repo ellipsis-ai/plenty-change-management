@@ -120,7 +120,7 @@
   "isSavedForUser" : false
 }, {
   "exportId" : "omSAi-SeT-6ahDDLmBoP5w",
-  "name" : "date",
+  "name" : "effectiveDate",
   "paramType" : {
     "exportId" : "Date & Time",
     "name" : "Date & Time"
