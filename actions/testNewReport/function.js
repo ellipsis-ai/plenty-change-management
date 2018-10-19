@@ -20,7 +20,7 @@ actionsApi.run({
     name: "riskLevel",
     value: "Medium"
   }, {
-    name: "date",
+    name: "effectiveDate",
     value: "January 1, 2020"
   }, {
     name: "alreadyHappened",

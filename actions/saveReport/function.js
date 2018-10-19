@@ -10,8 +10,9 @@ const Report = require('Report');
 const SAVE_ERROR_MESSAGE = `An error occurred while trying to save your report. Please notify <@${ellipsis.env.CHANGE_CONTROL_MANAGER_USER_ID}>.`;
 const report = Report.fromString(reportData);
 report.approved = "No";
-report.timestamp = moment.tz(ellipsis.teamInfo.timeZone).format("MMMM D YYYY, h:mm:ss a");
-
+const now = moment.tz(ellipsis.teamInfo.timeZone);
+report.timestamp = now.format("MMMM D YYYY, h:mm:ss a");
+report.reportDate = now.format(Report.dateFormat());
 client.authorize().then(() => {
   return sheets.spreadsheets.values.append({
     spreadsheetId: ellipsis.env.CHANGE_REQUEST_SHEET_ID,

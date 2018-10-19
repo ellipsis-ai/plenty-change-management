@@ -1,4 +1,4 @@
-function(location, team, problemAndAction, evaluatorGroup, riskLevel, date, alreadyHappened, file, supportingText, ellipsis) {
+function(location, team, problemAndAction, evaluatorGroup, riskLevel, effectiveDate, alreadyHappened, file, supportingText, ellipsis) {
   const box = require('ellipsis-box');
 const moment = require('moment-timezone');
 const Report = require('Report');
@@ -13,7 +13,7 @@ uploadFile().then((fileInfo) => {
     problemAndAction: problemAndAction,
     evaluatorGroup: evaluatorGroup.id,
     riskLevel: riskLevel.id,
-    date: moment(date).format("YYYY-MM-DD"),
+    effectiveDate: moment(effectiveDate).format(Report.dateFormat()),
     alreadyHappened: alreadyHappened ? "Yes" : "No",
     supportingUrl: fileInfo ? fileInfo.url : "(none)",
     supportingText: supportingText
