@@ -2,7 +2,7 @@
   "exportId" : "t1ekpQTYTH-xiKMBctdsng",
   "name" : "ChangeCategory",
   "responseTypeId" : "Normal",
-  "canBeMemoized" : false,
+  "canBeMemoized" : true,
   "isDataType" : true,
   "isTest" : false,
   "dataTypeConfig" : {

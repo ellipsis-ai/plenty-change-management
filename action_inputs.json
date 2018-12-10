@@ -19,6 +19,16 @@
   "isSavedForTeam" : false,
   "isSavedForUser" : false
 }, {
+  "exportId" : "AFPTnr0STiijgRgSeCNg0A",
+  "name" : "stockLevels",
+  "paramType" : {
+    "exportId" : "Text",
+    "name" : "Text"
+  },
+  "question" : "If applicable, what are the new Safety Stock, Reorder Point, and Preferred Stock levels (include units)?",
+  "isSavedForTeam" : false,
+  "isSavedForUser" : false
+}, {
   "exportId" : "AKBeYBjeRjyo-pE2n8OdrA",
   "name" : "reportData",
   "paramType" : {
@@ -126,6 +136,16 @@
     "name" : "Date & Time"
   },
   "question" : "What is the effective date?",
+  "isSavedForTeam" : false,
+  "isSavedForUser" : false
+}, {
+  "exportId" : "rRqSa80gTda4bI8gnE-BDw",
+  "name" : "vendor",
+  "paramType" : {
+    "exportId" : "Text",
+    "name" : "Text"
+  },
+  "question" : "If applicable, please list vendor and whether or not we have worked with them before.",
   "isSavedForTeam" : false,
   "isSavedForUser" : false
 }, {

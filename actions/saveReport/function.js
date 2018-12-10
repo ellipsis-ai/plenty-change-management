@@ -6,6 +6,7 @@ const {google} = require('googleapis');
 const sheets = google.sheets('v4');
 const moment = require('moment-timezone');
 const Report = require('Report');
+const sheetsUtils = require('sheets-utils');
 
 const SAVE_ERROR_MESSAGE = `An error occurred while trying to save your report. Please notify <@${ellipsis.env.CHANGE_CONTROL_MANAGER_USER_ID}>.`;
 const report = Report.fromString(reportData);
@@ -13,17 +14,17 @@ report.approved = "No";
 const now = moment.tz(ellipsis.teamInfo.timeZone);
 report.timestamp = now.format("MMMM D YYYY, h:mm:ss a");
 report.reportDate = now.format(Report.dateFormat());
-client.authorize().then(() => {
-  return sheets.spreadsheets.values.append({
-    spreadsheetId: ellipsis.env.CHANGE_REQUEST_SHEET_ID,
-    range: ellipsis.env.CHANGE_REQUEST_SHEET_NAME,
-    valueInputOption: 'USER_ENTERED',
-    requestBody: {
-      values: [report.toRow()]
-    },
-    auth: client
-  });
-}).catch((err) => {
+client.authorize()
+.then(() => sheetsUtils.insertRowInSheet(ellipsis.env.CHANGE_REQUEST_SHEET_ID, ellipsis.env.CHANGE_REQUEST_SHEET_NAME, 1, client))
+.then(() => sheets.spreadsheets.values.append({
+  spreadsheetId: ellipsis.env.CHANGE_REQUEST_SHEET_ID,
+  range: `${ellipsis.env.CHANGE_REQUEST_SHEET_NAME}!A2:Z2`,
+  valueInputOption: 'USER_ENTERED',
+  requestBody: {
+    values: [report.toRow()]
+  },
+  auth: client
+})).catch((err) => {
   throw new ellipsis.Error(err, {
     userMessage: SAVE_ERROR_MESSAGE
   });

@@ -2,7 +2,7 @@
   "exportId" : "HK4j-pdYQG6_Z3rvS9Vsmg",
   "name" : "Team",
   "responseTypeId" : "Normal",
-  "canBeMemoized" : false,
+  "canBeMemoized" : true,
   "isDataType" : true,
   "isTest" : false,
   "dataTypeConfig" : {
