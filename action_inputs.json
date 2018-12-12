@@ -55,7 +55,7 @@
     "exportId" : "File",
     "name" : "File"
   },
-  "question" : "If you have a file to upload with supporting data, upload it now.",
+  "question" : "Upload any other supporting evidence in the form of Word Docs, Excel Sheets, or any additional information from your computer.",
   "isSavedForTeam" : false,
   "isSavedForUser" : false
 }, {
@@ -105,7 +105,7 @@
     "exportId" : "Text",
     "name" : "Text"
   },
-  "question" : "Type any other supporting data you want to provide, or enter \"none\".",
+  "question" : "Enter any supporting evidence like Google Sheets, Box documents, etc. Or say \"none\".",
   "isSavedForTeam" : false,
   "isSavedForUser" : false
 }, {

@@ -1,4 +1,4 @@
-function(location, team, problemAndAction, evaluatorGroup, riskLevel, effectiveDate, stockLevels, vendor, alreadyHappened, file, supportingText, ellipsis) {
+function(location, team, problemAndAction, evaluatorGroup, riskLevel, effectiveDate, stockLevels, vendor, alreadyHappened, supportingText, file, ellipsis) {
   const box = require('ellipsis-box');
 const moment = require('moment-timezone');
 const Report = require('Report');
