@@ -7,6 +7,7 @@ const sheets = google.sheets('v4');
 const Report = require('Report');
 const report = Report.fromString(reportData);
 const categories = require("change-categories");
+const sheetsUtils = require('sheets-utils');
 
 client.authorize().then(() => {
   return sheets.spreadsheets.values.get({
@@ -35,15 +36,16 @@ client.authorize().then(() => {
   } else {
     const row = rows[matchingRowIndex];
     row[report.rowIndexOfApproved()] = report.approved = "Yes";
-    return sheets.spreadsheets.values.append({
-      spreadsheetId: ellipsis.env.CHANGE_REQUEST_SHEET_ID,
-      range: ellipsis.env.CHANGE_REQUEST_APPROVED_SHEET_NAME,
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [row]
-      },
-      auth: client
-    }).catch((err) => {
+    return sheetsUtils.insertRowInSheet(ellipsis.env.CHANGE_REQUEST_SHEET_ID, ellipsis.env.CHANGE_REQUEST_APPROVED_SHEET_NAME, 1, client)
+      .then(() => sheets.spreadsheets.values.append({
+        spreadsheetId: ellipsis.env.CHANGE_REQUEST_SHEET_ID,
+        range: `${ellipsis.env.CHANGE_REQUEST_APPROVED_SHEET_NAME}!A2:Z2`,
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [row]
+        },
+        auth: client
+    })).catch((err) => {
       throw new ellipsis.Error(err, {
         userMessage: "An error occurred while trying to save the report to the Approved spreadsheet."
       });

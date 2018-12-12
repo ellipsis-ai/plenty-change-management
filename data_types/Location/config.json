@@ -2,7 +2,7 @@
   "exportId" : "il6I4tZHQ12ntjt2_suUzg",
   "name" : "Location",
   "responseTypeId" : "Normal",
-  "canBeMemoized" : false,
+  "canBeMemoized" : true,
   "isDataType" : true,
   "isTest" : false,
   "dataTypeConfig" : {

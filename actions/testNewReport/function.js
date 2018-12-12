@@ -23,6 +23,12 @@ actionsApi.run({
     name: "effectiveDate",
     value: "January 1, 2020"
   }, {
+    name: "stockLevels",
+    value: "Unknown stock levels"
+  }, {
+    name: "vendor",
+    value: "Unknown vendor"
+  }, {
     name: "alreadyHappened",
     value: false
   }, {
