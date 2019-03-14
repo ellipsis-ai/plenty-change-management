@@ -2,11 +2,14 @@ function(reportData, ellipsis) {
   const EllipsisApi = require('ellipsis-api');
 const actionsApi = new EllipsisApi(ellipsis).actions;
 const client = require('google-client')(ellipsis);
-const {google} = require('googleapis');
-const sheets = google.sheets('v4');
+const {google} = ellipsis.require('googleapis@36.0.0');
+const sheets = google.sheets({
+  version: 'v4',
+  auth: client
+});
 const moment = require('moment-timezone');
 const Report = require('Report');
-const sheetsUtils = require('sheets-utils');
+const sheetsUtils = require('sheets-utils')(ellipsis);
 
 const SAVE_ERROR_MESSAGE = `An error occurred while trying to save your report. Please notify <@${ellipsis.env.CHANGE_CONTROL_MANAGER_USER_ID}>.`;
 const report = Report.fromString(reportData);

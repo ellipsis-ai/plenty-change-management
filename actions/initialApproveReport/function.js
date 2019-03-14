@@ -2,8 +2,11 @@ function(reportData, ellipsis) {
   const EllipsisApi = require('ellipsis-api');
 const actionsApi = new EllipsisApi(ellipsis).actions;
 const client = require('google-client')(ellipsis);
-const {google} = require('googleapis');
-const sheets = google.sheets('v4');
+const {google} = ellipsis.require('googleapis@36.0.0');
+const sheets = google.sheets({
+  version: 'v4',
+  auth: client
+});
 const Report = require('Report');
 const report = Report.fromString(reportData);
 const categories = require('change-categories');
