@@ -11,6 +11,7 @@ function(ellipsis) {
 "SEA - PROP",
 "SEA - PHARV",
 "SEA - CLD",
-"SEA - FULL FARM"
+"SEA - FULL FARM",
+"LAR"
 ]);
 }

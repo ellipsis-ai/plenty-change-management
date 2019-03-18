@@ -5,6 +5,7 @@ function(ellipsis) {
 "Farm Ops Strategy",
 "Sensory/Marketing",
 "Engineering",
-"CS"
+"CS",
+"LAR"
 ]);
 }
