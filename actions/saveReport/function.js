@@ -2,7 +2,7 @@ function(reportData, ellipsis) {
   const EllipsisApi = require('ellipsis-api');
 const actionsApi = new EllipsisApi(ellipsis).actions;
 const client = require('google-client')(ellipsis);
-const {google} = ellipsis.require('googleapis@36.0.0');
+const {google} = ellipsis.require('googleapis@38.0.0');
 const sheets = google.sheets({
   version: 'v4',
   auth: client
